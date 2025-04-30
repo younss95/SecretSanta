@@ -6,8 +6,6 @@ if(!isset($_SESSION['admin'])){
 }
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,19 +50,17 @@ if(!isset($_SESSION['admin'])){
 </head>
 
 <body>
-
 <header class="header">
-        
-
-    
     <nav class="navbar">
       <a href="#home">Accueil</a>
       <a href="#json">Participants</a>
+      <a href="#decompte">Gestion du décompte </a>
       <a href="logout.php">Déconnexion</a>
     </nav>
 </header>
 
 
+<!--  SECTION DE BIENVENUE  -->
 <section class="home" id="home">
     <div class="form-content">
       <h1>Vous etes connecté en <span>admin </span></h1>
@@ -77,9 +73,10 @@ if(!isset($_SESSION['admin'])){
 </section>
 
 
+<!--  SECTION TABLEAU DES PARTICIPANTS  -->
 <section class="home" id="json">
     <div class="form-content">
-      <h1>Les participants au <span>Secret Santa </span>Studely</h1>
+      <h1>Les participants au <span>Secret Santa </span>Studely !</h1>
     </div>
 
     <?php 
@@ -110,6 +107,33 @@ if(!isset($_SESSION['admin'])){
     ?>
     
 </section>
+
+
+<!--  SECTION GESTION DU DECOMPTE  -->
+<section class="decomptead" id="decompte">
+    <h1>Modifier la date du <span>décompte: </span></h1>
+
+  <form id="updateForm" method="POST" style="text-align:center; margin-top: 30px;">
+  <label for="date" style="font-size:x-large">Nouvelle date de décompte :</label><br><br>
+  <input type="datetime-local" id="date" name="date" required>
+  <button type="submit">Mettre à jour</button>
+  </form>
+</sEction>
+
+
+<!--  SCRIPT PHP POUR ENREGISTRER LE RESULTAT DE L'ADMIN SUR LA DATE  -->
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['date'])) {
+    $date = $_POST['date'];
+
+    if (file_put_contents('date.json', json_encode(['date' => $date]))) {
+        echo "Date mise à jour avec succès : $date";
+    } else {
+        echo "Erreur.";
+    }
+}
+?>
+
 
 <?php include("partiels/footer.php") ?>
 

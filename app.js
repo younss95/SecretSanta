@@ -1,3 +1,4 @@
+/*  PARTIE POUR AFFICHER UN MESSAGE DE REMERCIEMENT PERSONALISE  */
 document.getElementById('valider').addEventListener('click', function(){
     let prenom = document.getElementById('prenom').value.trim();
     let nom = document.getElementById('email').value.trim();
@@ -11,30 +12,59 @@ document.getElementById('valider').addEventListener('click', function(){
 });
 
 
-const days = document.getElementById('days');
-const hours = document.getElementById('hours');
-const minutes = document.getElementById('minutes');
-const seconds = document.getElementById('seconds');
 
 
+/*  PARTIE POUR LE GESTIONNAIRE DU TEMPS  */
+let timer;
 
+function startCountdown(targetDate) {
+  clearInterval(timer);
 
-const targetDate = new Date(`May 2, 2025 00:00:00`);
+  const dateObj = new Date(targetDate);
+  if (isNaN(dateObj.getTime())) {
+    console.error("Date invalide :", targetDate);
+    return;
+  }
 
+  function update() {
+    const now = new Date();
+    const diff = dateObj - now;
+    if (diff <= 0) {
+      clearInterval(timer);
+  
+      // Appel vers le backend pour lancer le Secret Santa
+      fetch('santa_algo.php')
+        .then(res => res.text())
+        .then(data => console.log('🎁 Secret Santa lancé :', data))
+        .catch(error => console.error('Erreur Secret Santa:', error));
+  
+      return;
+    }
 
-function updateCountdowntime(){
-    const currentTime = new Date();
-    const diff = targetDate - currentTime;
+    const s = Math.floor(diff / 1000);
+    const d = Math.floor(s / 86400);
+    const h = Math.floor((s % 86400) / 3600);
+    const m = Math.floor((s % 3600) / 60);
+    const sec = s % 60;
 
-    const d = Math.floor(diff/1000/60/60/24);
-    const h = Math.floor(diff/1000/60/60)%24;
-    const m = Math.floor(diff/1000/60)%60;
-    const s = Math.floor(diff/1000)%60;
-    
-    days.innerHTML = d;
-    hours.innerHTML = h<10 ? '0'+h : h;
-    minutes.innerHTML = m<10 ? '0'+m : m;
-    seconds.innerHTML = s<10 ? '0'+s : s;
+    document.getElementById('days').textContent = d.toString().padStart(2, '0');
+    document.getElementById('hours').textContent = h.toString().padStart(2, '0');
+    document.getElementById('minutes').textContent = m.toString().padStart(2, '0');
+    document.getElementById('seconds').textContent = sec.toString().padStart(2, '0');
+  }
+
+  update();
+  timer = setInterval(update, 1000);
 }
 
-setInterval(updateCountdowntime, 1000)
+// Appel initial
+fetch('get_date.php')
+  .then(res => res.text())
+  .then(date => {
+    console.log("📅 Date reçue depuis get_date.php :", date);
+    startCountdown(date);
+  })
+  .catch(error => console.error('Erreur de récupération de la date:', error));
+
+
+  

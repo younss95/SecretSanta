@@ -2,6 +2,7 @@
   <div class="social-icons">
     <a href="https://www.linkedin.com/company/linkedindestudely/posts/?feedView=all" target="_blank"><i class="bx bxl-linkedin"></i></a>
     <a href="https://www.instagram.com/studelyofficiel/?hl=fr" target="_blank"><i class="bx bxl-instagram"></i></a>
+    <a href="https://www.youtube.com/@studelyofficiel/videos" target="_blank"><i class="bx bxl-youtube"></i></a>
   </div>
 
 <!--

@@ -14,10 +14,7 @@
 
 <body>
 
-<header class="header">
-        
-
-    
+<header class="header"> 
     <nav class="navbar">
       <a href="#home">Accueil</a>
       <a href="#secret">Connexion</a>
@@ -34,7 +31,6 @@
     <div class="home-img">
         <a href="https://www.studely.com/fr/" target="_blank"><img src="style/studely.png"></a>
       </div>
-    
 </section>
 
 
@@ -42,15 +38,18 @@
   <div class="form-secret-parent">
     <h1>Pour vous connecter en admin, veuillez <span>remplir</span> le formulaire !</h1>
     <br><br><br>
+
     <div class="form-secret">
       <div class="form-row">
         <label for="pseudo">Pseudo : </label>
         <input type="text" id="pseudo" placeholder="Entre ton pseudo">
       </div>
+
       <div class="form-row">
         <label for="mdp">Password : </label>
         <input type="text" id="mdp" placeholder="Entre ton mdp">
       </div>
+      
       <button id="valider">Valider</button>
     </div>
     

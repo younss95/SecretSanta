@@ -11,13 +11,9 @@
     />
     
 </head>
-
 <body>
 
-<header class="header">
-        
-
-    
+<header class="header"> 
     <nav class="navbar">
       <a href="#home">Accueil</a>
       <a href="#secret">Secret Santa</a>
@@ -27,10 +23,11 @@
 </header>
 
 
+<!--  SECTION DE BIENVENUE  -->
 <section class="home" id="home">
     <div class="form-content">
       <h1>Bienvenue au <span>Secret Santa </span>Studely</h1><br><br><br>
-      <h2>Vous désirez offrir des cadeaux et vous en faire offrir ? Essayez notre Secret Santa Studely et découvrez votre père noël à vous !</h2>
+      <h2>Vous désirez offrir des cadeaux et vous en faire offrir ? Essayez notre Secret Santa Studely et découvrez votre <span>père noël</span> à vous !</h2>
     </div>
 
     <div class="home-img">
@@ -41,6 +38,7 @@
 
 
 
+<!--  SECTION DE PARTICIPATION AU SECRET SANTA  -->
 <section class="secret" id="secret">
   <div class="form-secret-parent">
     <h1>Pour participer, veuillez <span>remplir</span> le formulaire !</h1>
@@ -63,6 +61,8 @@
 </section>
 
 
+
+<!--  SECTION DU DECOMPTE AVANT LE SECRET SANTA  -->
 <section class="decompte" id="decompte">
     <h1>Le <span>décompte: </span></h1>
 
@@ -95,16 +95,16 @@
 
 
 
+<!--  SCRIPT JS POUR RECUPERER LES VALEURS DU FORMULAIRE  -->
 <script>
   document.getElementById('valider').addEventListener('click', function(event) {
     // Empêcher le rechargement de la page
     event.preventDefault();
 
-    // Récupérer les valeurs des champs
     const prenom = document.getElementById('prenom').value;
     const email = document.getElementById('email').value;
 
-    // Vérifier si les champs sont remplis
+
     if (prenom && email) {
       const utilisateur = {
         prenom: prenom,
@@ -131,6 +131,9 @@
     }
   });
 </script>
+
+
+
 
 
 <script src="app.js"></script>
