@@ -1,0 +1,7 @@
+neymar@gmail.com => messi
+test@gmail.com => hakimi
+messi@gmail.com => younes
+younesazirgui@gmail.com => mbappe
+mbappe@gmail.com => test
+hakimi@gmail.com => neymar
+

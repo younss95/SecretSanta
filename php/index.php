@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Secret Santa Studely</title>
-    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="../style/style.css">
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
@@ -18,7 +18,7 @@
       <a href="#home">Accueil</a>
       <a href="#secret">Secret Santa</a>
       <a href="#decompte">Décompte</a>
-      <a href="admin.php">Admin</a>
+      <a href="#admin">Admin</a>
     </nav>
 </header>
 
@@ -31,7 +31,7 @@
     </div>
 
     <div class="home-img">
-        <a href="https://www.studely.com/fr/" target="_blank" alt="Logo de studely"><img src="style/studely.png"></a>
+        <a href="https://www.studely.com/fr/" target="_blank" alt="Logo de studely"><img src="../style/studely.png"></a>
       </div>
     
 </section>
@@ -49,15 +49,15 @@
         <input type="text" id="prenom" placeholder="Entre ton prénom">
       </div>
       <div class="form-row">
-        <label for="email">Nom : </label>
+        <label for="email">Email : </label>
         <input type="text" id="email" placeholder="Entre ton email">
       </div>
-      <button id="valider">Valider</button>
+      <button id="valider_secret">Valider</button>
     </div>
     
   </div>
     <br>
-    <div id="message" style="margin-top: 20px; font-weight: bold; color: #1d7dde; font-size: 35px; text-align: center; margin-top: 10%;"></div>
+    <div id="message_secret" style="margin-top: 20px; font-weight: bold; color: #1d7dde; font-size: 35px; text-align: center; margin-top: 10%;"></div>
 </section>
 
 
@@ -90,14 +90,40 @@
     
 </section>
 
-<?php include("partiels/footer.php") ?>
+
+<!--  SECTION DE CONNEXION EN ADMIN  -->
+<section class="secret" id="admin">
+  <div class="form-secret-parent">
+    <h1>Pour vous connecter en admin, veuillez <span>remplir</span> le formulaire !</h1>
+    <br><br><br>
+
+    <div class="form-secret">
+      <div class="form-row">
+        <label for="pseudo">Pseudo : </label>
+        <input type="text" id="pseudo" placeholder="Entre ton pseudo">
+      </div>
+
+      <div class="form-row">
+        <label for="mdp">Password : </label>
+        <input type="text" id="mdp" placeholder="Entre ton mdp">
+      </div>
+      
+      <button id="valider_admin">Valider</button>
+    </div>
+    
+  </div>
+    <br>
+    <div id="message_admin" style="margin-top: 20px; font-weight: bold; color: #1d7dde; font-size: 35px; text-align: center; margin-top: 10%;"></div>
+</section>
+
+<?php include("../partiels/footer.php") ?>
 
 
 
 
 <!--  SCRIPT JS POUR RECUPERER LES VALEURS DU FORMULAIRE  -->
 <script>
-  document.getElementById('valider').addEventListener('click', function(event) {
+  document.getElementById('valider_secret').addEventListener('click', function(event) {
     // Empêcher le rechargement de la page
     event.preventDefault();
 
@@ -112,7 +138,7 @@
       };
 
       // Envoyer les données au serveur
-      fetch('inscription.php', {
+      fetch('../php/inscription.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -121,7 +147,6 @@
       })
       .then(response => response.json())
       .then(data => {
-        alert(data.message); // Afficher le message du serveur
       })
       .catch(error => {
         console.error('Erreur:', error);
@@ -133,9 +158,41 @@
 </script>
 
 
+<!--  SECTION JS POUR GERER LA SOUMISSION D'UN FORMULAIRE POUR UN ADMIN   -->
+<script>
+  document.getElementById('valider_admin').addEventListener('click', function(event) {
+    event.preventDefault();
+
+    const pseudo = document.getElementById('pseudo').value.trim();
+    const mdp = document.getElementById('mdp').value.trim();
+
+    if (pseudo && mdp) {
+      fetch('../php/verif_admin.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pseudo: pseudo, mdp: mdp })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          window.location.href = '../php/adminco.php';
+        } else {
+          document.getElementById('message_admin').textContent = data.message;
+        }
+      })
+      .catch(error => {
+        console.error('Erreur :', error);
+      });
+    } else {
+      document.getElementById('message_admin').textContent = 'Veuillez remplir tous les champs.';
+    }
+  });
+</script>
 
 
 
-<script src="app.js"></script>
+
+
+<script src="../js/app.js"></script>
 </body>
 </html>
